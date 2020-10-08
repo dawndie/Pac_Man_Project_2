@@ -10,7 +10,7 @@
 python autograder.py -q q1
 ```
 ### Mô tả: 
-Trong mã nguồn được cung cấp đã có sẵn class ReflexAgent, việc của chúng ta bây giờ là viết hàm ước lượng (evaluation function) để làm cho Reflex Agent trở nên thông minh hơn, biết lựa chọn thức ăn và tránh ghost. Hàm Evaluation là hàm lấy vào GameState và trả ra 1 số, nếu số này càng lớn thì có nghĩa là tính hình đang thuật lợi, pacman đnag ở càng gần thức ăn còn nếu số này rất nhỏ thì nghĩa là pacman đang gặp nguy hiểm.
+Trong mã nguồn được cung cấp đã có sẵn class `ReflexAgent`, việc của chúng ta bây giờ là viết hàm ước lượng (evaluation function) để làm cho Reflex Agent trở nên thông minh hơn, biết lựa chọn thức ăn và tránh ghost. Hàm Evaluation là hàm lấy vào `GameState` và trả ra 1 số, nếu số này càng lớn thì có nghĩa là tính hình đang thuật lợi, pacman đang ở càng gần thức ăn còn nếu số này rất nhỏ thì nghĩa là pacman đang gặp nguy hiểm.
 
 ### Mã nguồn evaluation function :
 ```php
@@ -30,7 +30,13 @@ Trong mã nguồn được cung cấp đã có sẵn class ReflexAgent, việc c
 
 👉`minFoodist` - Khoảng cách đến thức ăn ngắn nhất.
 
-
+## Q2: Minimax
+### Grade:
+```php
+python autograder.py -q q2
+```
+### Mô tả: 
+Hoàn thành class MinimaxAgent
 
 
 

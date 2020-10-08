@@ -12,7 +12,7 @@ python autograder.py -q q1
 ### Mô tả: 
 Trong mã nguồn được cung cấp đã có sẵn class `ReflexAgent`, việc của chúng ta bây giờ là viết hàm ước lượng (evaluation function) để làm cho Reflex Agent trở nên thông minh hơn, biết lựa chọn thức ăn và tránh ghost. Hàm Evaluation là hàm lấy vào `GameState` và trả ra 1 số, nếu số này càng lớn thì có nghĩa là tính hình đang thuật lợi, pacman đang ở càng gần thức ăn còn nếu số này rất nhỏ thì nghĩa là pacman đang gặp nguy hiểm.
 
-### Mã nguồn evaluation function :
+### Mã nguồn `evaluationFunction` :
 ```php
 # focusing on eating food.When ghost near don't go,
         newFood = successorGameState.getFood().asList()
@@ -36,7 +36,25 @@ Trong mã nguồn được cung cấp đã có sẵn class `ReflexAgent`, việc
 python autograder.py -q q2
 ```
 ### Mô tả: 
-Hoàn thành hàm `getAction` trong class `MinimaxAgent` có nhiệm vụ là lấy vào GameState và và đưa ra hướng tiếp theo mà pacman cần phải đi sử dụng thuật toán minimax
+Hoàn thành hàm `getAction` trong class `MinimaxAgent` có nhiệm vụ là lấy vào GameState và và đưa ra hướng tiếp theo mà pacman cần phải đi sử dụng thuật toán minimax, trong mã nguồn em tạo thêm 3 hàm nữa để hỗ trợ là `minimax`,`maxVal`,`minVal`
+### Mã nguồn các hàm :
+👉 Hàm`getAction`
+```php
+def getAction(self, gameState):
+        return self.maxval(gameState, 0, 0)[0]
+```
+👉 Hàm `minimax`
+```php
+def minimax(self, gameState, agentIndex, depth):
+        if depth is self.depth * gameState.getNumAgents() \
+                or gameState.isLose() or gameState.isWin():
+            return self.evaluationFunction(gameState)
+        if agentIndex is 0:
+            return self.maxval(gameState, agentIndex, depth)[1]
+        else:
+            return self.minval(gameState, agentIndex, depth)[1]
+```
+
 
 
 

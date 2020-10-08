@@ -9,9 +9,10 @@
 ```php
 python autograder.py -q q1
 ```
-### Mô tả: Trong mã nguồn được cung cấp đã có sẵn class ReflexAgent, việc của chúng ta bây giờ là viết hàm ước lượng (evaluation function) để làm cho Reflex Agent trở nên thông minh hơn, biết lựa chọn thức ăn và tránh ghost
+### Mô tả: 
+Trong mã nguồn được cung cấp đã có sẵn class ReflexAgent, việc của chúng ta bây giờ là viết hàm ước lượng (evaluation function) để làm cho Reflex Agent trở nên thông minh hơn, biết lựa chọn thức ăn và tránh ghost.
 
-Mã nguồn evaluation function :
+### Mã nguồn evaluation function :
 ```php
 # focusing on eating food.When ghost near don't go,
         newFood = successorGameState.getFood().asList()
@@ -25,6 +26,10 @@ Mã nguồn evaluation function :
 
         return successorGameState.getScore() + 1.0/minFoodist
 ```
+`newFood` - Danh sách chứa các thức ăn đang có trên bản đồ
+`minFoodist` - 
+`
+
 
 
 

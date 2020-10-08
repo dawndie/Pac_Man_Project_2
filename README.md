@@ -54,6 +54,7 @@ def minimax(self, gameState, agentIndex, depth):
         else:
             return self.minval(gameState, agentIndex, depth)[1]
 ```
+
 👉 Hàm `maxVal`
 ```php
 def maxval(self, gameState, agentIndex, depth):
@@ -74,6 +75,8 @@ def minval(self, gameState, agentIndex, depth):
             bestAction = min(bestAction,succAction,key=lambda x:x[1])
         return bestAction
 ```
+👉 `agentIndex` = 0 là đến turn của pacman
+
 
 
 

@@ -41,18 +41,38 @@ Hoàn thành hàm `getAction` trong class `MinimaxAgent` có nhiệm vụ là l�
 👉 Hàm`getAction`
 ```php
 def getAction(self, gameState):
-        return self.maxval(gameState, 0, 0)[0]
+        return self.maxval(gameState, 0, 0)[0] # return next action for pacman
 ```
 👉 Hàm `minimax`
 ```php
 def minimax(self, gameState, agentIndex, depth):
         if depth is self.depth * gameState.getNumAgents() \
                 or gameState.isLose() or gameState.isWin():
-            return self.evaluationFunction(gameState)
+            return self.evaluationFunction(gameState) 
         if agentIndex is 0:
-            return self.maxval(gameState, agentIndex, depth)[1]
+            return self.maxval(gameState, agentIndex, depth)[1] 
         else:
             return self.minval(gameState, agentIndex, depth)[1]
+```
+👉 Hàm `maxVal`
+```php
+def maxval(self, gameState, agentIndex, depth):
+        bestAction = ("max",-float("inf"))
+        for action in gameState.getLegalActions(agentIndex):
+            succAction = (action,self.minimax(gameState.generateSuccessor(agentIndex,action),
+                                      (depth + 1)%gameState.getNumAgents(),depth+1))
+            bestAction = max(bestAction,succAction,key=lambda x:x[1])
+        return bestAction
+```
+👉 Hàm `minVal`
+```php
+def minval(self, gameState, agentIndex, depth):
+        bestAction = ("min",float("inf"))
+        for action in gameState.getLegalActions(agentIndex):
+            succAction = (action,self.minimax(gameState.generateSuccessor(agentIndex,action),
+                                      (depth + 1)%gameState.getNumAgents(),depth+1))
+            bestAction = min(bestAction,succAction,key=lambda x:x[1])
+        return bestAction
 ```
 
 

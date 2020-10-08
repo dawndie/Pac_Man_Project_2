@@ -36,7 +36,7 @@ Trong mã nguồn được cung cấp đã có sẵn class `ReflexAgent`, việc
 python autograder.py -q q2
 ```
 ### Mô tả: 
-Hoàn thành class MinimaxAgent
+Hoàn thành class `MinimaxAgent`
 
 
 

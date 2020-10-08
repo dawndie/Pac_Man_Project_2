@@ -36,7 +36,7 @@ Trong mã nguồn được cung cấp đã có sẵn class `ReflexAgent`, việc
 python autograder.py -q q2
 ```
 ### Mô tả: 
-Hoàn thành class `MinimaxAgent`
+Hoàn thành hàm `getAction` trong class `MinimaxAgent` có nhiệm vụ là lấy vào GameState và và đưa ra hướng tiếp theo mà pacman cần phải đi sử dụng thuật toán minimax
 
 
 

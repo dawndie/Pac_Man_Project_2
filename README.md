@@ -26,8 +26,8 @@ Trong mã nguồn được cung cấp đã có sẵn class ReflexAgent, việc c
 
         return successorGameState.getScore() + 1.0/minFoodist
 ```
-`newFood` - Danh sách chứa các thức ăn đang có trên bản đồ.
-`minFoodist` - Khoảng cách đến thức ăn ngắn nhất.
+👉`newFood` - Danh sách chứa các thức ăn đang có trên bản đồ.
+👉`minFoodist` - Khoảng cách đến thức ăn ngắn nhất.
 
 
 

@@ -1,4 +1,4 @@
-# AI-Project [multiAgent] ＼⍩⃝／＼⍩⃝／
+# AI-Project [multiAgent] :v :v
 ## [Võ Lương Bằng](https://github.com/dawndie) - 18020198|K63J
 ## Link Youtube:
 

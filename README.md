@@ -117,7 +117,8 @@ def maxval(self, gameState, agentIndex, depth, alpha, beta):
             else: alpha = max(alpha,bestAction[1])
 
         return bestAction
-        ```
+```   
+
 👉 Hàm `minval`
 ```php
 def minval(self, gameState, agentIndex, depth, alpha, beta):

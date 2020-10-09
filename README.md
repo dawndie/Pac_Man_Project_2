@@ -133,6 +133,21 @@ def minval(self, gameState, agentIndex, depth, alpha, beta):
         return bestAction
         ```
 
+## Q4: Expectimax
+### Grade:
+```php
+python autograder.py -q q4
+```
+### Mô tả: 
+`Expectimax` và `minimax` về cơ bản là giống nhau, chỉ khác nhau ở điểm là expectimax sẽ lấy giá trị trung bình ở các Node của ghost thay vì lấy min như minimax
 
+### Mã nguồn các hàm:
+👉 Hàm `getAction`
+```php
+ def getAction(self, gameState):
+        # calling expectimax with the depth we are going to investigate
+        maxDepth = self.depth * gameState.getNumAgents()
+        return self.expectimax(gameState, "expect", maxDepth, 0)[0]
+```
 
 

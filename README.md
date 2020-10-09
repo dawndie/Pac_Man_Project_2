@@ -36,7 +36,7 @@ Trong mã nguồn được cung cấp đã có sẵn class `ReflexAgent`, việc
 python autograder.py -q q2
 ```
 ### Mô tả: 
-Hoàn thành hàm `getAction` trong class `MinimaxAgent` có nhiệm vụ là lấy vào GameState và và đưa ra hướng tiếp theo mà pacman cần phải đi sử dụng thuật toán minimax, trong mã nguồn em tạo thêm 3 hàm nữa để hỗ trợ là `minimax`,`maxVal`,`minVal`
+Hoàn thành hàm `getAction` trong class `MinimaxAgent` có nhiệm vụ là lấy vào GameState và và đưa ra hướng tiếp theo mà pacman cần phải đi sử dụng thuật toán minimax, trong mã nguồn em tạo thêm 3 hàm nữa để hỗ trợ là `minimax`,`maxVal`,`minVal`.
 ### Mã nguồn các hàm :
 👉 Hàm`getAction`
 ```php
@@ -77,7 +77,62 @@ def minval(self, gameState, agentIndex, depth):
 ```
 👉 `agentIndex` = 0 là đến turn của pacman
 
+## Q3: Alpha-Beta Pruning
+### Grade:
+```php
+python autograder.py -q q3
+```
+### Mô tả: 
+Về cơ bản thì tác tử `AlphaBetaAgent` này tương đối giống với `MinimaxAgent` nhưng trong các hàm `minval` và `maxval` có thêm 2 dòng code để prunning.
+### Mã nguồn các hàm:
+👉 Hàm `getAction`
+```php
+def getAction(self, gameState):
+        return self.maxval(gameState, 0, 0, -float("inf"), float("inf"))[0]
+```
 
+👉 Hàm `alphabeta` (tương đương với hàm minimax trong câu 2)
+```php
+def alphabeta(self, gameState, agentIndex, depth, alpha, beta):
+        if depth is self.depth * gameState.getNumAgents() \
+                or gameState.isLose() or gameState.isWin():
+            return self.evaluationFunction(gameState)
+        if agentIndex is 0:
+            return self.maxval(gameState, agentIndex, depth, alpha, beta)[1]
+        else:
+            return self.minval(gameState, agentIndex, depth, alpha, beta)[1]
+```
+
+👉 Hàm `maxval`
+```php
+def maxval(self, gameState, agentIndex, depth, alpha, beta):
+        bestAction = ("max",-float("inf"))
+        for action in gameState.getLegalActions(agentIndex):
+            succAction = (action,self.alphabeta(gameState.generateSuccessor(agentIndex,action),
+                                      (depth + 1)%gameState.getNumAgents(),depth+1, alpha, beta))
+            bestAction = max(bestAction,succAction,key=lambda x:x[1])
+
+            # Prunning
+            if bestAction[1] > beta: return bestAction
+            else: alpha = max(alpha,bestAction[1])
+
+        return bestAction
+        ```
+👉 Hàm `minval`
+```php
+def minval(self, gameState, agentIndex, depth, alpha, beta):
+        bestAction = ("min",float("inf"))
+        for action in gameState.getLegalActions(agentIndex):
+            succAction = (action,self.alphabeta(gameState.generateSuccessor(agentIndex,action),
+                                      (depth + 1)%gameState.getNumAgents(),depth+1, alpha, beta))
+            bestAction = min(bestAction,succAction,key=lambda x:x[1])
+
+            # Prunning
+            if bestAction[1] < alpha: return bestAction
+            else: beta = min(beta, bestAction[1])
+
+        return bestAction
+        ```
 
 
 

@@ -131,7 +131,7 @@ def minval(self, gameState, agentIndex, depth, alpha, beta):
             else: beta = min(beta, bestAction[1])
 
         return bestAction
-        ```
+```
 
 ## Q4: Expectimax
 ### Grade:

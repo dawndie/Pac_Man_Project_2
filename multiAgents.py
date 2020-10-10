@@ -22,7 +22,6 @@ class ReflexAgent(Agent):
     """
       A reflex agent chooses an action at each choice point by examining
       its alternatives via a state evaluation function.
-
       The code below is provided as a guide.  You are welcome to change
       it in any way you see fit, so long as you don't touch our method
       headers.
@@ -32,9 +31,7 @@ class ReflexAgent(Agent):
     def getAction(self, gameState):
         """
         You do not need to change this method, but you're welcome to.
-
         getAction chooses among the best options according to the evaluation function.
-
         Just like in the previous project, getAction takes a GameState and returns
         some Directions.X for some X in the set {North, South, West, East, Stop}
         """
@@ -54,15 +51,12 @@ class ReflexAgent(Agent):
     def evaluationFunction(self, currentGameState, action):
         """
         Design a better evaluation function here.
-
         The evaluation function takes in the current and proposed successor
         GameStates (pacman.py) and returns a number, where higher numbers are better.
-
         The code below extracts some useful information from the state, like the
         remaining food (newFood) and Pacman position after moving (newPos).
         newScaredTimes holds the number of moves that each ghost will remain
         scared because of Pacman having eaten a power pellet.
-
         Print out these variables to see what you're getting, then combine them
         to create a masterful evaluation function.
         """
@@ -78,19 +72,19 @@ class ReflexAgent(Agent):
         newFood = successorGameState.getFood().asList()
         minFoodist = float("inf")
         for food in newFood:
-          minFoodist = min(minFoodist, manhattanDistance(newPos, food))
-          # avoid ghost if too close
+            minFoodist = min(minFoodist, manhattanDistance(newPos, food))
+
+        # avoid ghost if too close
         for ghost in successorGameState.getGhostPositions():
             if (manhattanDistance(newPos, ghost) < 2):
                 return -float('inf')
-
+        # reciprocal
         return successorGameState.getScore() + 1.0/minFoodist
 
 def scoreEvaluationFunction(currentGameState):
     """
       This default evaluation function just returns the score of the state.
       The score is the same one displayed in the Pacman GUI.
-
       This evaluation function is meant for use with adversarial search agents
       (not reflex agents).
     """
@@ -101,11 +95,9 @@ class MultiAgentSearchAgent(Agent):
       This class provides some common elements to all of your
       multi-agent searchers.  Any methods defined here will be available
       to the MinimaxPacmanAgent, AlphaBetaPacmanAgent & ExpectimaxPacmanAgent.
-
       You *do not* need to make any changes here, but you can if you want to
       add functionality to all your adversarial search agents.  Please do not
       remove anything, however.
-
       Note: this is an abstract class: one that should not be instantiated.  It's
       only partially specified, and designed to be extended.  Agent (game.py)
       is another abstract class.
@@ -120,25 +112,23 @@ class MinimaxAgent(MultiAgentSearchAgent):
     """
       Your minimax agent (question 2)
     """
+
     def getAction(self, gameState):
         """
           Returns the minimax action from the current gameState using self.depth
           and self.evaluationFunction.
-
           Here are some method calls that might be useful when implementing minimax.
-
           gameState.getLegalActions(agentIndex):
             Returns a list of legal actions for an agent
             agentIndex=0 means Pacman, ghosts are >= 1
-
           gameState.generateSuccessor(agentIndex, action):
             Returns the successor game state after an agent takes an action
-
           gameState.getNumAgents():
             Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
         return self.maxval(gameState, 0, 0)[0]
+
     def minimax(self, gameState, agentIndex, depth):
         if depth is self.depth * gameState.getNumAgents() \
                 or gameState.isLose() or gameState.isWin():
@@ -163,6 +153,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
                                       (depth + 1)%gameState.getNumAgents(),depth+1))
             bestAction = min(bestAction,succAction,key=lambda x:x[1])
         return bestAction
+
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
@@ -219,9 +210,9 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
     def getAction(self, gameState):
         """
           Returns the expectimax action using self.depth and self.evaluationFunction
-
           All ghosts should be modeled as choosing uniformly at random from their
           legal moves.
+          The expectimax function returns a tuple of (actions,
         """
         "*** YOUR CODE HERE ***"
         # calling expectimax with the depth we are going to investigate
@@ -265,16 +256,51 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
             averageScore += bestAction[1] * propability
         return (action, averageScore)
 
+import math
+
 def betterEvaluationFunction(currentGameState):
     """
       Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
       evaluation function (question 5).
-
       DESCRIPTION: <write something here so we know what you did>
+      Evaluate state by  :
+            * closest food
+            * food left
+            * capsules left
+            * distance to ghost
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    # Useful information you can extract from a GameState (pacman.py)
+    newPos = currentGameState.getPacmanPosition()
+    newFood = currentGameState.getFood().asList()
+
+    minFoodist = float('inf')
+    for food in newFood:
+        minFoodist = min(minFoodist, manhattanDistance(newPos, food))
+
+    ghostDist = 0
+    for ghost in currentGameState.getGhostPositions():
+        ghostDist = manhattanDistance(newPos, ghost)
+        if (ghostDist < 2):
+            return -float('inf')
+
+    foodLeft = currentGameState.getNumFood()
+    capsLeft = len(currentGameState.getCapsules())
+
+    foodLeftMultiplier = 950050
+    capsLeftMultiplier = 10000
+    foodDistMultiplier = 950
+
+    additionalFactors = 0
+    if currentGameState.isLose():
+        additionalFactors -= 50000
+    elif currentGameState.isWin():
+        additionalFactors += 50000
+
+    return 1.0/(foodLeft + 1) * foodLeftMultiplier + ghostDist + \
+           1.0/(minFoodist + 1) * foodDistMultiplier + \
+           1.0/(capsLeft + 1) * capsLeftMultiplier + additionalFactors
 
 # Abbreviation
 better = betterEvaluationFunction
-

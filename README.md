@@ -149,5 +149,55 @@ python autograder.py -q q4
         maxDepth = self.depth * gameState.getNumAgents()
         return self.expectimax(gameState, "expect", maxDepth, 0)[0]
 ```
+👉 Hàm `expectimax` tương đương với hàm minimax trong các câu trên
+```php
+def expectimax(self, gameState, action, depth, agentIndex):
+
+        if depth is 0 or gameState.isLose() or gameState.isWin():
+            return (action, self.evaluationFunction(gameState))
+
+        # if pacman (max agent) - return max successor value
+        if agentIndex is 0:
+            return self.maxvalue(gameState,action,depth,agentIndex)
+        # if ghost (EXP agent) - return probability value
+        else:
+            return self.expvalue(gameState,action,depth,agentIndex)
+```
+
+👉 Hàm `maxvalue`
+```php
+def maxvalue(self,gameState,action,depth,agentIndex):
+        bestAction = ("max", -(float('inf')))
+        for legalAction in gameState.getLegalActions(agentIndex):
+            nextAgent = (agentIndex + 1) % gameState.getNumAgents()
+            succAction = None
+            if depth != self.depth * gameState.getNumAgents():
+                succAction = action
+            else:
+                succAction = legalAction
+            succValue = self.expectimax(gameState.generateSuccessor(agentIndex, legalAction),
+                                        succAction,depth - 1,nextAgent)
+            bestAction = max(bestAction,succValue,key = lambda x:x[1])
+        return bestAction
+```
+
+👉 Hàm `expvalue`
+
+```php
+def expvalue(self,gameState,action,depth,agentIndex):
+        legalActions = gameState.getLegalActions(agentIndex)
+        averageScore = 0
+        propability = 1.0/len(legalActions)
+        for legalAction in legalActions:
+            nextAgent = (agentIndex + 1) % gameState.getNumAgents()
+            bestAction = self.expectimax(gameState.generateSuccessor(agentIndex, legalAction),
+                                         action, depth - 1, nextAgent)
+            averageScore += bestAction[1] * propability
+        return (action, averageScore)
+```
+
+
+
+
 
 

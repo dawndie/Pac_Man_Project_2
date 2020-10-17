@@ -42,6 +42,7 @@ def getAction(self, gameState):
         return self.maxval(gameState, 0, 0)[0] # return next action for pacman
 ```
 👉 Hàm `minimax`
+Là hàm thực hiện thuật toán `minimax`, nếu game ở trạng thái kết thúc thì sẽ trả và hàm ước lượng, nếu đến turn của pac man thì sẽ trả về `maxVal`, nếu đến turn của ghost sẽ trả về minVal.
 ```php
 def minimax(self, gameState, agentIndex, depth):
         if depth is self.depth * gameState.getNumAgents() \
@@ -195,8 +196,13 @@ def expvalue(self,gameState,action,depth,agentIndex):
             averageScore += bestAction[1] * propability
         return (action, averageScore)
 ```
-
-
+## Q5: Expectimax
+### Grade:
+```php
+python autograder.py -q q5
+```
+### Mô tả:
+Để tăng độ hiểu quả cho hàm ước lượng thì em cho thêm một số thông số nữa như `additionalFactors`, `foodDistMultiplier`, `foodLeftMultiplier`
 
 
 

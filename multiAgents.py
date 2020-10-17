@@ -270,8 +270,6 @@ def betterEvaluationFunction(currentGameState):
             * distance to ghost
     """
     "*** YOUR CODE HERE ***"
-
-    # Useful information you can extract from a GameState (pacman.py)
     newPos = currentGameState.getPacmanPosition()
     newFood = currentGameState.getFood().asList()
 
@@ -301,6 +299,5 @@ def betterEvaluationFunction(currentGameState):
     return 1.0/(foodLeft + 1) * foodLeftMultiplier + ghostDist + \
            1.0/(minFoodist + 1) * foodDistMultiplier + \
            1.0/(capsLeft + 1) * capsLeftMultiplier + additionalFactors
-
 # Abbreviation
 better = betterEvaluationFunction
